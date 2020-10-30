@@ -21,7 +21,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: Not titled yet
+    title: Car_RemoteRx
     window_size: ''
   states:
     bus_sink: false
@@ -48,7 +48,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '1083998'
+    value: '1000000'
   states:
     bus_sink: false
     bus_source: false
@@ -63,7 +63,7 @@ blocks:
     alias: ''
     append: 'False'
     comment: ''
-    file: /home/locchanan/Documents/RF_Projects/CarKeyReverseEngineer/open_press
+    file: /home/locchanan/Documents/RF_Projects/CarKeyReverseEngineer/open_press.smpl
     type: complex
     unbuffered: 'False'
     vlen: '1'
@@ -81,7 +81,7 @@ blocks:
     alias: ''
     auto_filter: 'True'
     bandwidth: '20000000'
-    bbdc: 'False'
+    bbdc: 'True'
     buffer_size: '32768'
     comment: ''
     filter: ''
@@ -94,7 +94,7 @@ blocks:
     minoutbuf: '0'
     quadrature: 'True'
     rf_port_select: '''A_BALANCED'''
-    rfdc: 'False'
+    rfdc: 'True'
     rx1_en: 'True'
     rx2_en: 'False'
     samplerate: samp_rate

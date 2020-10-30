@@ -71,7 +71,7 @@ class untitled(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 1083998
+        self.samp_rate = samp_rate = 1000000
         self.LO_Freq = LO_Freq = 315000000
 
         ##################################################
@@ -94,8 +94,8 @@ class untitled(gr.top_block, Qt.QWidget):
         self.qtgui_sink_x_0.enable_rf_freq(False)
 
         self.top_grid_layout.addWidget(self._qtgui_sink_x_0_win)
-        self.iio_fmcomms2_source_0 = iio.fmcomms2_source_f32c('ip:192.168.0.6', LO_Freq, samp_rate, 20000000, True, False, 32768, True, False, False, 'manual', 64, 'manual', 64, 'A_BALANCED', '', True)
-        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_gr_complex*1, '/home/locchanan/Documents/RF_Projects/CarKeyReverseEngineer/open_press', False)
+        self.iio_fmcomms2_source_0 = iio.fmcomms2_source_f32c('ip:192.168.0.6', LO_Freq, samp_rate, 20000000, True, False, 32768, True, True, True, 'manual', 64, 'manual', 64, 'A_BALANCED', '', True)
+        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_gr_complex*1, '/home/locchanan/Documents/RF_Projects/CarKeyReverseEngineer/open_press.smpl', False)
         self.blocks_file_sink_0.set_unbuffered(False)
 
 
@@ -116,14 +116,14 @@ class untitled(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.iio_fmcomms2_source_0.set_params(self.LO_Freq, self.samp_rate, 20000000, True, False, False, 'manual', 64, 'manual', 64, 'A_BALANCED', '', True)
+        self.iio_fmcomms2_source_0.set_params(self.LO_Freq, self.samp_rate, 20000000, True, True, True, 'manual', 64, 'manual', 64, 'A_BALANCED', '', True)
 
     def get_LO_Freq(self):
         return self.LO_Freq
 
     def set_LO_Freq(self, LO_Freq):
         self.LO_Freq = LO_Freq
-        self.iio_fmcomms2_source_0.set_params(self.LO_Freq, self.samp_rate, 20000000, True, False, False, 'manual', 64, 'manual', 64, 'A_BALANCED', '', True)
+        self.iio_fmcomms2_source_0.set_params(self.LO_Freq, self.samp_rate, 20000000, True, True, True, 'manual', 64, 'manual', 64, 'A_BALANCED', '', True)
         self.qtgui_sink_x_0.set_frequency_range(self.LO_Freq, 20000000)
 
 

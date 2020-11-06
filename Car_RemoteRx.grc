@@ -41,7 +41,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [339, 72]
+    coordinate: [279, 12]
     rotation: 0
     state: true
 - name: samp_rate
@@ -73,7 +73,7 @@ blocks:
     bus_structure: null
     coordinate: [902, 331]
     rotation: 0
-    state: true
+    state: disabled
 - name: iio_fmcomms2_source_0
   id: iio_fmcomms2_source
   parameters:
@@ -81,20 +81,20 @@ blocks:
     alias: ''
     auto_filter: 'True'
     bandwidth: '20000000'
-    bbdc: 'True'
+    bbdc: 'False'
     buffer_size: '32768'
     comment: ''
     filter: ''
     frequency: LO_Freq
-    gain1: '''manual'''
+    gain1: '''fast_attack'''
     gain2: '''manual'''
     manual_gain1: '64'
     manual_gain2: '64'
     maxoutbuf: '0'
     minoutbuf: '0'
-    quadrature: 'True'
+    quadrature: 'False'
     rf_port_select: '''A_BALANCED'''
-    rfdc: 'True'
+    rfdc: 'False'
     rx1_en: 'True'
     rx2_en: 'False'
     samplerate: samp_rate

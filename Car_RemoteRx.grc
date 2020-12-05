@@ -56,6 +56,38 @@ blocks:
     coordinate: [184, 12]
     rotation: 0
     state: enabled
+- name: blocks_complex_to_mag_0
+  id: blocks_complex_to_mag
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [577, 412]
+    rotation: 0
+    state: enabled
+- name: blocks_complex_to_mag_squared_0
+  id: blocks_complex_to_mag_squared
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [577, 464]
+    rotation: 0
+    state: disabled
 - name: blocks_file_sink_0
   id: blocks_file_sink
   parameters:
@@ -74,6 +106,24 @@ blocks:
     coordinate: [902, 331]
     rotation: 0
     state: disabled
+- name: blocks_file_sink_0_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: /home/locchanan/Documents/RF_Projects/CarKeyReverseEngineer/open_press_mag.smpl
+    type: float
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [901, 463]
+    rotation: 0
+    state: enabled
 - name: iio_fmcomms2_source_0
   id: iio_fmcomms2_source
   parameters:
@@ -86,7 +136,7 @@ blocks:
     comment: ''
     filter: ''
     frequency: LO_Freq
-    gain1: '''fast_attack'''
+    gain1: '''manual'''
     gain2: '''manual'''
     manual_gain1: '64'
     manual_gain2: '64'
@@ -134,9 +184,44 @@ blocks:
     bus_structure: null
     coordinate: [881, 128]
     rotation: 0
-    state: true
+    state: disabled
+- name: qtgui_sink_x_0_0
+  id: qtgui_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    bw: '20000000'
+    comment: ''
+    fc: LO_Freq
+    fftsize: '1024'
+    gui_hint: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '10'
+    showports: 'False'
+    showrf: 'False'
+    type: float
+    wintype: firdes.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1160, 230]
+    rotation: 0
+    state: enabled
 
 connections:
+- [blocks_complex_to_mag_0, '0', blocks_file_sink_0_0, '0']
+- [blocks_complex_to_mag_0, '0', qtgui_sink_x_0_0, '0']
+- [blocks_complex_to_mag_squared_0, '0', blocks_file_sink_0_0, '0']
+- [blocks_complex_to_mag_squared_0, '0', qtgui_sink_x_0_0, '0']
+- [iio_fmcomms2_source_0, '0', blocks_complex_to_mag_0, '0']
+- [iio_fmcomms2_source_0, '0', blocks_complex_to_mag_squared_0, '0']
 - [iio_fmcomms2_source_0, '0', blocks_file_sink_0, '0']
 - [iio_fmcomms2_source_0, '0', qtgui_sink_x_0, '0']
 

@@ -25,6 +25,7 @@ from PyQt5 import Qt
 from gnuradio import qtgui
 from gnuradio.filter import firdes
 import sip
+from gnuradio import blocks
 from gnuradio import gr
 import sys
 import signal
@@ -76,7 +77,7 @@ class untitled(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
-        self.qtgui_sink_x_0 = qtgui.sink_c(
+        self.qtgui_sink_x_0_0 = qtgui.sink_f(
             1024, #fftsize
             firdes.WIN_BLACKMAN_hARRIS, #wintype
             LO_Freq, #fc
@@ -87,20 +88,25 @@ class untitled(gr.top_block, Qt.QWidget):
             True, #plottime
             True #plotconst
         )
-        self.qtgui_sink_x_0.set_update_time(1.0/10)
-        self._qtgui_sink_x_0_win = sip.wrapinstance(self.qtgui_sink_x_0.pyqwidget(), Qt.QWidget)
+        self.qtgui_sink_x_0_0.set_update_time(1.0/10)
+        self._qtgui_sink_x_0_0_win = sip.wrapinstance(self.qtgui_sink_x_0_0.pyqwidget(), Qt.QWidget)
 
-        self.qtgui_sink_x_0.enable_rf_freq(False)
+        self.qtgui_sink_x_0_0.enable_rf_freq(False)
 
-        self.top_grid_layout.addWidget(self._qtgui_sink_x_0_win)
-        self.iio_fmcomms2_source_0 = iio.fmcomms2_source_f32c('ip:192.168.0.6', LO_Freq, samp_rate, 20000000, True, False, 32768, False, False, False, 'fast_attack', 64, 'manual', 64, 'A_BALANCED', '', True)
+        self.top_grid_layout.addWidget(self._qtgui_sink_x_0_0_win)
+        self.iio_fmcomms2_source_0 = iio.fmcomms2_source_f32c('ip:192.168.0.6', LO_Freq, samp_rate, 20000000, True, False, 32768, False, False, False, 'manual', 64, 'manual', 64, 'A_BALANCED', '', True)
+        self.blocks_file_sink_0_0 = blocks.file_sink(gr.sizeof_float*1, '/home/locchanan/Documents/RF_Projects/CarKeyReverseEngineer/open_press_mag.smpl', False)
+        self.blocks_file_sink_0_0.set_unbuffered(False)
+        self.blocks_complex_to_mag_0 = blocks.complex_to_mag(1)
 
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.iio_fmcomms2_source_0, 0), (self.qtgui_sink_x_0, 0))
+        self.connect((self.blocks_complex_to_mag_0, 0), (self.blocks_file_sink_0_0, 0))
+        self.connect((self.blocks_complex_to_mag_0, 0), (self.qtgui_sink_x_0_0, 0))
+        self.connect((self.iio_fmcomms2_source_0, 0), (self.blocks_complex_to_mag_0, 0))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "untitled")
@@ -112,15 +118,15 @@ class untitled(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.iio_fmcomms2_source_0.set_params(self.LO_Freq, self.samp_rate, 20000000, False, False, False, 'fast_attack', 64, 'manual', 64, 'A_BALANCED', '', True)
+        self.iio_fmcomms2_source_0.set_params(self.LO_Freq, self.samp_rate, 20000000, False, False, False, 'manual', 64, 'manual', 64, 'A_BALANCED', '', True)
 
     def get_LO_Freq(self):
         return self.LO_Freq
 
     def set_LO_Freq(self, LO_Freq):
         self.LO_Freq = LO_Freq
-        self.iio_fmcomms2_source_0.set_params(self.LO_Freq, self.samp_rate, 20000000, False, False, False, 'fast_attack', 64, 'manual', 64, 'A_BALANCED', '', True)
-        self.qtgui_sink_x_0.set_frequency_range(self.LO_Freq, 20000000)
+        self.iio_fmcomms2_source_0.set_params(self.LO_Freq, self.samp_rate, 20000000, False, False, False, 'manual', 64, 'manual', 64, 'A_BALANCED', '', True)
+        self.qtgui_sink_x_0_0.set_frequency_range(self.LO_Freq, 20000000)
 
 
 
